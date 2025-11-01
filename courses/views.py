@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
@@ -28,4 +28,4 @@ def get_courses_by_category_name(request, category_name):
     return HttpResponse(text)
 
 def get_courses_by_category_id(request, category_id):
-    return HttpResponse(category_id)
+    return HttpResponseRedirect('/kurs/kategori/programlama')
