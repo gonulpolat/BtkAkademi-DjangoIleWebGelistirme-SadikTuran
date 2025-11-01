@@ -11,6 +11,9 @@ from django.urls import include, path
 # http://127.0.0.1:8000/kurs/kategori/programlama          => Programlama Kategorisine Ait Kurslar
 # http://127.0.0.1:8000/kurs/kategori/web-gelistirme       => Web Geliştirme Kategorisine Ait Kurslar
 # http://127.0.0.1:8000/kurs/kategori/mobil-uygulamalar    => Mobil Uygulamalar Kategorisine Ait Kurslar
+# http://127.0.0.1:8000/kurs/kategori/<1>                  => Programlama Kategorisine Ait Kurslar
+# http://127.0.0.1:8000/kurs/kategori/<2>                  => Web Geliştirme Kategorisine Ait Kurslar
+# http://127.0.0.1:8000/kurs/kategori/<3>                  => Mobil Uygulamalar Kategorisine Ait Kurslar
 # http://127.0.0.1:8000/kurs/kategori/<str:>               => Yanlış Kategori Seçimi
 # http://127.0.0.1:8000/kurs/kategori/<int:>               => Programlama Kategorisine Ait Kurslar
 

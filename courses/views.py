@@ -28,4 +28,9 @@ def get_courses_by_category_name(request, category_name):
         
 
 def get_courses_by_category_id(request, category_id):
-    return redirect('/kurs/kategori/programlama')
+    category_list = list(data.keys())
+    if(category_id > len(category_list)):
+        return HttpResponseNotFound("Yanlış Kategori Seçimi")
+    redirect_text = category_list[category_id - 1]
+    return redirect('/kurs/kategori/' + redirect_text)
+    
