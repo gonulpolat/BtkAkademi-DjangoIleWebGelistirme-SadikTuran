@@ -16,4 +16,13 @@ def mobile_apps(request):
     return HttpResponse("Mobil Uygulamalar")
 
 def get_courses_by_category(request, category):
-    return HttpResponse(f"{category} Kategorisine Göre Kurs Listesi")
+    text = ""
+    if category == "programlama":
+        text = "Programlama Kategorisine Ait Kurslar"
+    elif category == "web-gelistirme":
+        text = "Web Geliştirme Kategorisine Ait Kurslar"
+    elif category == "mobil-uygulamalar":
+        text = "Mobil Uygulamalar Kategorisine Ait Kurslar"
+    else:
+        text = "Yanlış Kategori Seçimi"
+    return HttpResponse(text)
