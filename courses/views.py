@@ -6,8 +6,8 @@ from django.shortcuts import render
 def courses(request):
     return HttpResponse("Kurs Listesi")
 
-def details(request):
-    return HttpResponse("Kurs Detay Sayfası")
+def details(request, course_name):
+    return HttpResponse(f"{course_name} Detay Sayfası")
 
 def programming(request):
     return HttpResponse("Programlama Kurs Listesi")
@@ -15,14 +15,17 @@ def programming(request):
 def mobile_apps(request):
     return HttpResponse("Mobil Uygulamalar")
 
-def get_courses_by_category(request, category):
+def get_courses_by_category_name(request, category_name):
     text = ""
-    if category == "programlama":
+    if category_name == "programlama":
         text = "Programlama Kategorisine Ait Kurslar"
-    elif category == "web-gelistirme":
+    elif category_name == "web-gelistirme":
         text = "Web Geliştirme Kategorisine Ait Kurslar"
-    elif category == "mobil-uygulamalar":
+    elif category_name == "mobil-uygulamalar":
         text = "Mobil Uygulamalar Kategorisine Ait Kurslar"
     else:
         text = "Yanlış Kategori Seçimi"
     return HttpResponse(text)
+
+def get_courses_by_category_id(request, category_id):
+    return HttpResponse(category_id)
