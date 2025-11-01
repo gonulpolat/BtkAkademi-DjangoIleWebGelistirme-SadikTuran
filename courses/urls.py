@@ -6,6 +6,5 @@ urlpatterns = [
     path('', views.courses),
     path('liste', views.courses),
     path('detay', views.details),
-    path('programlama', views.programming),
-    path('mobil-uygulamalar', views.mobile_apps),
+    path('<category>', views.get_courses_by_category),
 ]

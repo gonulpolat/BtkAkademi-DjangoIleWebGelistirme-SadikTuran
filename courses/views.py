@@ -14,3 +14,6 @@ def programming(request):
 
 def mobile_apps(request):
     return HttpResponse("Mobil Uygulamalar")
+
+def get_courses_by_category(request, category):
+    return HttpResponse(f"{category} Kategorisine Göre Kurs Listesi")
