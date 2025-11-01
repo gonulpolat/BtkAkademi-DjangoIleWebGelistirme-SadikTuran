@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.urls import include, path
 
-# http://127.0.0.1:8000/                                   => Anasayfa
-# http://127.0.0.1:8000/anasayfa                           => Anasayfa
+# http://127.0.0.1:8000/                                   => 
+# http://127.0.0.1:8000/anasayfa                           => 
+# http://127.0.0.1:8000/index                              => 
 # http://127.0.0.1:8000/iletisim                           => İletişim Sayfası
 # http://127.0.0.1:8000/hakkimizda                         => Hakkımızda Sayfası
-# http://127.0.0.1:8000/kurs                               => Kurs listesi
-# http://127.0.0.1:8000/kurs/liste                         => Kurs listesi
+# http://127.0.0.1:8000/kurs                               => 
+# http://127.0.0.1:8000/kurs/liste                         => 
 # http://127.0.0.1:8000/kurs/<>                            => <> Detay Sayfası
 # http://127.0.0.1:8000/kurs/kategori/programlama          => Programlama Kategorisine Ait Kurslar
 # http://127.0.0.1:8000/kurs/kategori/web-gelistirme       => Web Geliştirme Kategorisine Ait Kurslar
