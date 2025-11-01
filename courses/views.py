@@ -1,7 +1,11 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import redirect, render
 
-# Create your views here.
+data = {
+    "programlama": "Programlama Kategorisine Ait Kurslar",
+    "web-gelistirme": "Web Geliştirme Kategorisine Ait Kurslar",
+    "mobil-uygulamalar": "Mobil Uygulamalar Kategorisine Ait Kurslar",
+}
 
 def courses(request):
     return HttpResponse("Kurs Listesi")
@@ -16,16 +20,12 @@ def mobile_apps(request):
     return HttpResponse("Mobil Uygulamalar")
 
 def get_courses_by_category_name(request, category_name):
-    text = ""
-    if category_name == "programlama":
-        text = "Programlama Kategorisine Ait Kurslar"
-    elif category_name == "web-gelistirme":
-        text = "Web Geliştirme Kategorisine Ait Kurslar"
-    elif category_name == "mobil-uygulamalar":
-        text = "Mobil Uygulamalar Kategorisine Ait Kurslar"
-    else:
-        text = "Yanlış Kategori Seçimi"
-    return HttpResponse(text)
+    try:
+        category_text = data[category_name]
+        return HttpResponse(category_text)
+    except:
+        return HttpResponseNotFound("Yanlış Kategori Seçimi")
+        
 
 def get_courses_by_category_id(request, category_id):
-    return HttpResponseRedirect('/kurs/kategori/programlama')
+    return redirect('/kurs/kategori/programlama')
