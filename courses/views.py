@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from .models import Course
+
 data = {
     "programlama": "Programlama Kategorisine Ait Kurslar",
     "web-gelistirme": "Web Geliştirme Kategorisine Ait Kurslar",
@@ -59,7 +61,7 @@ db = {
 }
 
 def index(request):
-    kurslar = [course for course in db['courses'] if course['isActive']]
+    kurslar = Course.objects.filter(isActive=1)
     kategoriler = db['categories']
 
     return render(request, 'courses/index.html', {
