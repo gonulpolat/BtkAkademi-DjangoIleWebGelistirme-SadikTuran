@@ -9,6 +9,17 @@
 {% endblock  %}
 
 {% block content %}
-    <h1>Kurs Listesi</h1>
-    <i class="fa-regular fa-folder-open fa-2xl"></i>
+    <div class="container mt-3">
+        <div class="row">
+            <!--menu-->
+            <div class="col-3">
+                {% include "courses/partials/_categories.html" %}
+            </div>
+            <!--content-->
+            <div class="col-9">
+                <h1>Kurs Listesi</h1>
+                <i class="fa-regular fa-folder-open fa-2xl"></i>
+            </div>
+        </div>
+    </div>
 {% endblock  %}
