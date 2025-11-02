@@ -18,6 +18,7 @@ db = {
             "slug": "javascript-kursu",
             "date": date(2025,10,10),
             "isActive": True,
+            "isUpdated": True,
         },
         {
             "title": "Python Kursu",
@@ -26,6 +27,7 @@ db = {
             "slug": "python-kursu",
             "date": date(2025,11,12),
             "isActive": False,
+            "isUpdated": True,
         },
         {
             "title": "Web Geliştirme Kursu",
@@ -34,6 +36,7 @@ db = {
             "slug": "web-gelistirme-kursu",
             "date": date(2025,10,23),
             "isActive": True,
+            "isUpdated": False,
         },
     ],
     "categories": [
