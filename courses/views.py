@@ -9,18 +9,11 @@ data = {
 }
 
 def index(request):
-    return render(request, 'courses/index.html')
-
-def courses(request):
     category_list = list(data.keys())
-    list_items = ""
-    for category in category_list:
-        redirect_url = reverse('courses_by_category_name', args=[category])
-        list_items += f"<li><a href='{redirect_url}'>{category}</a></li>"
 
-    html = f"<h1>Kurs Listesi</h1><br><ul>{list_items}</ul>"
-
-    return HttpResponse(html)
+    return render(request, 'courses/index.html', {
+        'categories': category_list,
+    })
 
 def details(request, course_name):
     return HttpResponse(f"{course_name} Detay Sayfası")
