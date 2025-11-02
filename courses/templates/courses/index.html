@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block css_files %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
+    <link rel="stylesheet" href="{% static "courses/css/style.css" %}">
 {% endblock  %}
 
 {% block page_title %}
@@ -23,4 +25,8 @@
             </div>
         </div>
     </div>
+{% endblock  %}
+
+{% block js_files %}
+    <script src="{% static "courses/js/script.js" %}"></script>
 {% endblock  %}
