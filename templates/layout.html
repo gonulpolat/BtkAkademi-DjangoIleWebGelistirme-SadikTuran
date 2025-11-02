@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/css/bootstrap.min.css"/>
+    {% block css_files %}{% endblock  %}
     <title>CourseApp | {% block page_title %}{% endblock  %}</title>
 </head>
 <body>
@@ -43,5 +44,6 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.8/js/bootstrap.min.js"></script>
+    {% block js_files %}{% endblock  %}
 </body>
 </html>
