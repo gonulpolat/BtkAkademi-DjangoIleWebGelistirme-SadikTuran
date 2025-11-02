@@ -56,11 +56,7 @@ db = {
 }
 
 def index(request):
-    kurslar = []
-    for kurs in db['courses']:
-        if kurs['isActive']:
-            kurslar.append(kurs)
-    
+    kurslar = [course for course in db['courses'] if course['isActive']]
     kategoriler = db['categories']
 
     return render(request, 'courses/index.html', {
