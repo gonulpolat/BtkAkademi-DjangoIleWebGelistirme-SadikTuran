@@ -16,7 +16,7 @@
                 {% comment %} {% include "courses/partials/_categories.html" %} {% endcomment %}
                 <div class="list-group">
                     {% for category in categories %}
-                        <a href="/kurs/kategori/{{category}}" class="list-group-item list-group-item-action"> {{category}} </a>
+                        <a href="{% url "courses_by_category_name" category %}" class="list-group-item list-group-item-action"> {{category}} </a>
                     {% endfor %}
                 </div>
             </div>
