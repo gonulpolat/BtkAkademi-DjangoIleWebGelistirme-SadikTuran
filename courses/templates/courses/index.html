@@ -17,8 +17,9 @@
             </div>
             <!--content-->
             <div class="col-9">
-                <h1>Kurs Listesi</h1>
-                <i class="fa-regular fa-folder-open fa-2xl"></i>
+                {% for course in courses %}
+                    {% include "courses/partials/_courses.html" %}
+                {% endfor %}
             </div>
         </div>
     </div>
