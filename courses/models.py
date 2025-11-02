@@ -7,3 +7,7 @@ class Course(models.Model):
     imageUrl = models.CharField(max_length=50)
     date = models.DateField()
     isActive = models.BooleanField()
+
+
+    def __str__(self):
+        return f"{self.title}"
