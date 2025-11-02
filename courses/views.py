@@ -17,7 +17,7 @@ db = {
             "imageUrl": "https://img-c.udemycdn.com/course/750x422/1944162_74f2_3.jpg",
             "slug": "javascript-kursu",
             "date": date(2025,10,10),
-            "is-active": True,
+            "isActive": True,
         },
         {
             "title": "Python Kursu",
@@ -25,7 +25,7 @@ db = {
             "imageUrl": "https://img-c.udemycdn.com/course/750x422/2463492_8344_3.jpg",
             "slug": "python-kursu",
             "date": date(2025,11,12),
-            "is-active": False,
+            "isActive": False,
         },
         {
             "title": "Web Geliştirme Kursu",
@@ -33,7 +33,7 @@ db = {
             "imageUrl": "https://img-c.udemycdn.com/course/750x422/1258436_2dc3_4.jpg",
             "slug": "web-gelistirme-kursu",
             "date": date(2025,10,23),
-            "is-active": True,
+            "isActive": True,
         },
     ],
     "categories": [
