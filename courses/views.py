@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -16,7 +16,7 @@ db = {
             "description": "JavaScript, HTML ve CSS ile birlikte World Wide Web'in temel teknolojilerinden biri olan programlama dilidir. Web sitelerinin %97'sinden fazlası, web sayfası hareketleri için istemci tarafında JavaScript kullanırlar ve kullanılan kodlar genellikle üçüncü taraf kitaplıkları içerir.",
             "imageUrl": "https://img-c.udemycdn.com/course/750x422/1944162_74f2_3.jpg",
             "slug": "javascript-kursu",
-            "date": date(2025,10,10),
+            "date": datetime.now(),
             "isActive": True,
             "isUpdated": True,
         },
