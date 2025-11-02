@@ -1,3 +1,4 @@
+from datetime import date
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -6,6 +7,36 @@ data = {
     "programlama": "Programlama Kategorisine Ait Kurslar",
     "web-gelistirme": "Web Geliştirme Kategorisine Ait Kurslar",
     "mobil-uygulamalar": "Mobil Uygulamalar Kategorisine Ait Kurslar",
+}
+
+db = {
+    "courses": [
+        {
+            "title": "JavaScript Kursu",
+            "description": "JavaScript, HTML ve CSS ile birlikte World Wide Web'in temel teknolojilerinden biri olan programlama dilidir. Web sitelerinin %97'sinden fazlası, web sayfası hareketleri için istemci tarafında JavaScript kullanırlar ve kullanılan kodlar genellikle üçüncü taraf kitaplıkları içerir.",
+            "imageUrl": "https://img-c.udemycdn.com/course/750x422/1944162_74f2_3.jpg",
+            "slug": "javascript-kursu",
+            "date": date(2025,10,10),
+            "is-active": True,
+        },
+        {
+            "title": "Python Kursu",
+            "description": "Python, nesne yönelimli, yorumlamalı, birimsel ve etkileşimli yüksek seviyeli bir programlama dilidir. Girintilere dayalı basit söz dizimi, dilin öğrenilmesini ve akılda kalmasını kolaylaştırır.",
+            "imageUrl": "https://img-c.udemycdn.com/course/750x422/2463492_8344_3.jpg",
+            "slug": "python-kursu",
+            "date": date(2025,11,12),
+            "is-active": False,
+        },
+        {
+            "title": "Web Geliştirme Kursu",
+            "description": "Web development, internet üzerinden erişilebilen web siteleri ve web tabanlı uygulamaların oluşturulması sürecidir.",
+            "imageUrl": "https://img-c.udemycdn.com/course/750x422/1258436_2dc3_4.jpg",
+            "slug": "web-gelistirme-kursu",
+            "date": date(2025,10,23),
+            "is-active": True,
+        },
+    ],
+    "categories": ["programlama", "web geliştirme", "mobil uygulamalar"]
 }
 
 def index(request):
