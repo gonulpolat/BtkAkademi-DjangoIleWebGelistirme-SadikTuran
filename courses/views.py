@@ -33,7 +33,7 @@ def mobile_apps(request):
     return HttpResponse("Mobil Uygulamalar")
 
 def get_courses_by_category(request, slug):
-    kurslar = Course.objects.filter(category__slug = slug, isActive = 1)
+    kurslar = Course.objects.filter(categories__slug = slug, isActive = 1)
     kategoriler = Category.objects.all()
 
     context = {
