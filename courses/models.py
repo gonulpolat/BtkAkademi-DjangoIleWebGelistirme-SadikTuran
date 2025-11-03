@@ -4,7 +4,7 @@ from django.utils.text import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    slug = models.CharField(max_length=50)
+    slug = models.SlugField(default="", blank=True, null=False, unique=True, db_index=True, max_length=50)
 
 
     def __str__(self):
