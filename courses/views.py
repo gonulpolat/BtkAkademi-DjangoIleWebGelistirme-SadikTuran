@@ -1,14 +1,9 @@
-from django.http import Http404, HttpResponse, HttpResponseNotFound
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse
+from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 
 from .models import Category, Course
 
-data = {
-    "programlama": "Programlama Kategorisine Ait Kurslar",
-    "web-gelistirme": "Web Geliştirme Kategorisine Ait Kurslar",
-    "mobil-uygulamalar": "Mobil Uygulamalar Kategorisine Ait Kurslar",
-}
 
 def index(request):
     kurslar = Course.objects.filter(isActive=1)
@@ -36,8 +31,17 @@ def get_courses_by_category(request, slug):
     kurslar = Course.objects.filter(categories__slug = slug, isActive = 1)
     kategoriler = Category.objects.all()
 
+    paginator = Paginator(kurslar, 2)
+    # page = 1
+    page = request.GET.get('page', 1)   # page içerisinde değer varsa onu yoksa 1 değerini al
+    courses = paginator.get_page(page)
+
+    # url'in sonuna ?page=1 ekleyerek inceleyebilirsin
+    print(paginator.count)
+    print(paginator.num_pages)
+
     context = {
-        'courses': kurslar,
+        'courses': courses,
         'categories': kategoriler,
         'selected_category': slug,
     }
