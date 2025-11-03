@@ -5,12 +5,19 @@ from .models import Category, Course
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'isActive')
+    list_display = ('title', 'slug', 'isActive', 'category_list')  # category_list Course modelinde yok, fonksiyon ile oluşturman gerekli
     list_display_links = ('title', 'slug')
     prepopulated_fields = {'slug': ('title',),}
     list_filter = ('isActive',)
     list_editable = ('isActive',)
     search_fields = ('title', 'description')
+
+
+    def category_list(self, obj):
+        text = ""
+        for category in obj.categories.all():
+            text += category.name + " / "
+        return text
 
 
 @admin.register(Category)
