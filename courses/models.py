@@ -2,6 +2,15 @@ from django.db import models
 from django.utils.text import slugify
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+    slug = models.CharField(max_length=50)
+
+
+    def __str__(self):
+        return f"{self.name}"
+
+
 class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
@@ -13,6 +22,12 @@ class Course(models.Model):
         editable=False : zaten slug alanı save methodu ile kaydediliyor, sen slug alanına herhangi bir değer yazsan da kendi otomatik değer veriyor. bu nedenle slug alanına yazı yazılamasın. kurs ekleme panelinde artık slug alanı görünmez.
     """
     slug = models.SlugField(default="",blank=True, editable=False, null=False, unique=True, db_index=True)
+    """
+        CASCADE     : Bir kategori silinirse onunla ilgili kurs da silinir
+        SET_NULL    : Bir kategori silinirse kurstaki category_id kolonuna null değeri atanır. bunu kullanmak için null=True demen gerekli, çünkü category kolonu varsayılan olarak null kabul etmiyor
+        SET_DEFAULT : Bir kategori silindiğinde kurstaki category_id kolonuna default bir değer atanır. bunun için de default parametresini tanımlaman gerekli.
+    """
+    category = models.ForeignKey(Category, default=2, on_delete=models.CASCADE) # default parametresinin sebebi veri tabanında kayıtların olması
 
     
     def save(self, *args, **kwargs):
@@ -23,12 +38,3 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.title}"
-    
-
-class Category(models.Model):
-    name = models.CharField(max_length=50)
-    slug = models.CharField(max_length=50)
-
-
-    def __str__(self):
-        return f"{self.name}"
