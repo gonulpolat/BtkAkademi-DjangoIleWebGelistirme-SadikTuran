@@ -1,5 +1,4 @@
-from datetime import date, datetime
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -20,8 +19,15 @@ def index(request):
         'categories': kategoriler,
     })
 
-def details(request, course_name):
-    return HttpResponse(f"{course_name} Detay Sayfası")
+def details(request, course_id):
+    try:
+        course = Course.objects.get(pk=course_id)
+    except:
+        raise Http404()
+    context = {
+        'course': course
+    }
+    return render(request, 'courses/details.html', context)
 
 def programming(request):
     return HttpResponse("Programlama Kurs Listesi")
