@@ -28,7 +28,7 @@ class Course(models.Model):
         SET_DEFAULT : Bir kategori silindiğinde kurstaki category_id kolonuna default bir değer atanır. bunun için de default parametresini tanımlaman gerekli.
         * Database'de alanın adı category_id olarak gitse de shell üzerinde işlem yaparken category olarak kullanılır.
     """
-    category = models.ForeignKey(Category, default=2, on_delete=models.CASCADE) # default parametresinin sebebi veri tabanında kayıtların olması
+    category = models.ForeignKey(Category, default=2, on_delete=models.CASCADE, related_name="kurslar") # default parametresinin sebebi veri tabanında kayıtların olması
 
     
     def save(self, *args, **kwargs):
