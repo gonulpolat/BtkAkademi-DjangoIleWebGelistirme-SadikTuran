@@ -28,15 +28,13 @@ def mobile_apps(request):
     return HttpResponse("Mobil Uygulamalar")
 
 def get_courses_by_category(request, slug):
-    kurslar = Course.objects.filter(categories__slug = slug, isActive = 1)
+    kurslar = Course.objects.filter(categories__slug = slug, isActive = 1).order_by('date')
     kategoriler = Category.objects.all()
 
     paginator = Paginator(kurslar, 2)
-    # page = 1
-    page = request.GET.get('page', 1)   # page içerisinde değer varsa onu yoksa 1 değerini al
+    page = request.GET.get('page', 1)   
     courses = paginator.get_page(page)
 
-    # url'in sonuna ?page=1 ekleyerek inceleyebilirsin
     print(paginator.count)
     print(paginator.num_pages)
 
