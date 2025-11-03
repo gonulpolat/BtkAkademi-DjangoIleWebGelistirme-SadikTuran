@@ -8,7 +8,11 @@ class Course(models.Model):
     imageUrl = models.CharField(max_length=50)
     date = models.DateField()
     isActive = models.BooleanField()
-    slug = models.SlugField(default="", null=False, unique=True, db_index=True)
+    """
+        blank = True   : admin panelindeki formda slug alanı boş bırakılabilir.
+        editable=False : zaten slug alanı save methodu ile kaydediliyor, sen slug alanına herhangi bir değer yazsan da kendi otomatik değer veriyor. bu nedenle slug alanına yazı yazılamasın. kurs ekleme panelinde artık slug alanı görünmez.
+    """
+    slug = models.SlugField(default="",blank=True, editable=False, null=False, unique=True, db_index=True)
 
     
     def save(self, *args, **kwargs):
