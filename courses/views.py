@@ -33,13 +33,10 @@ def get_courses_by_category(request, slug):
 
     paginator = Paginator(kurslar, 2)
     page = request.GET.get('page', 1)   
-    courses = paginator.get_page(page)
-
-    print(paginator.count)
-    print(paginator.num_pages)
+    page_obj = paginator.page(page) # page fonksiyonu ya da get_page fonksiyonunu kullanabilirsin
 
     context = {
-        'courses': courses,
+        'page_obj': page_obj,
         'categories': kategoriler,
         'selected_category': slug,
     }

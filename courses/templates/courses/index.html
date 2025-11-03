@@ -19,13 +19,35 @@
             </div>
             <!--content-->
             <div class="col-9">
-                {% if courses|length == 0 %}
+                {% if page_obj.object_list|length == 0 %}
                     <div class="alert alert-warning">Kurs Bulunamadı</div>
                 {% endif %}
 
-                {% for course in courses %}
+                {% for course in page_obj.object_list %}
                     {% include "courses/partials/_courses.html" %}
                 {% endfor %}
+
+                {% if page_obj.paginator.num_pages > 1 %}
+                    <nav>
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a href="#" class="page-link">Geri</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a href="#" class="page-link">İleri</a>
+                            </li>
+                        </ul>
+                    </nav>
+                {% endif %}
             </div>
         </div>
     </div>
