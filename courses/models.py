@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 
 class Course(models.Model):
@@ -7,6 +8,14 @@ class Course(models.Model):
     imageUrl = models.CharField(max_length=50)
     date = models.DateField()
     isActive = models.BooleanField()
+    #slug = models.SlugField(null=True)  # Zaten veri tabanı oluşturuldu. slug alanı sonradan eklendiği ve null değer kabul etmeyecği için null parametresine True geçiyorsun ya da 
+    slug = models.SlugField(default="", null=False)  # Bu durumda da zaten var olan kayıtlar default değeri alacağı için null=False diyebilirsin
+
+    
+    def save(self, *args, **kwargs):
+        #save methodu çalıştığında slug alanları otomatik yazdırılır
+        self.slug = slugify(self.title)
+        super().save(args, kwargs)
 
 
     def __str__(self):
