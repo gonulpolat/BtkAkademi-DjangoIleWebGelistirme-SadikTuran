@@ -8,8 +8,7 @@ class Course(models.Model):
     imageUrl = models.CharField(max_length=50)
     date = models.DateField()
     isActive = models.BooleanField()
-    #slug = models.SlugField(null=True)  # Zaten veri tabanı oluşturuldu. slug alanı sonradan eklendiği ve null değer kabul etmeyecği için null parametresine True geçiyorsun ya da 
-    slug = models.SlugField(default="", null=False)  # Bu durumda da zaten var olan kayıtlar default değeri alacağı için null=False diyebilirsin
+    slug = models.SlugField(default="", null=False, unique=True, db_index=True)
 
     
     def save(self, *args, **kwargs):
