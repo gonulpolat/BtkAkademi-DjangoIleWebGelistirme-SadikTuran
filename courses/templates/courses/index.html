@@ -19,6 +19,10 @@
             </div>
             <!--content-->
             <div class="col-9">
+                {% if courses|length == 0 %}
+                    <div class="alert alert-warning">Kurs Bulunamadı</div>
+                {% endif %}
+
                 {% for course in courses %}
                     {% include "courses/partials/_courses.html" %}
                 {% endfor %}
