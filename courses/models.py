@@ -21,7 +21,7 @@ class Course(models.Model):
         blank = True   : admin panelindeki formda slug alanı boş bırakılabilir.
         editable=False : zaten slug alanı save methodu ile kaydediliyor, sen slug alanına herhangi bir değer yazsan da kendi otomatik değer veriyor. bu nedenle slug alanına yazı yazılamasın. kurs ekleme panelinde artık slug alanı görünmez.
     """
-    slug = models.SlugField(default="",blank=True, editable=False, null=False, unique=True, db_index=True)
+    slug = models.SlugField(default="",blank=True, null=False, unique=True, db_index=True)
     """
         CASCADE     : Bir kategori silinirse onunla ilgili kurs da silinir
         SET_NULL    : Bir kategori silinirse kurstaki category_id kolonuna null değeri atanır. bunu kullanmak için null=True demen gerekli, çünkü category kolonu varsayılan olarak null kabul etmiyor
@@ -29,12 +29,6 @@ class Course(models.Model):
         * Database'de alanın adı category_id olarak gitse de shell üzerinde işlem yaparken category olarak kullanılır.
     """
     category = models.ForeignKey(Category, default=2, on_delete=models.CASCADE, related_name="kurslar") # default parametresinin sebebi veri tabanında kayıtların olması
-
-    
-    def save(self, *args, **kwargs):
-        #save methodu çalıştığında slug alanları otomatik yazdırılır
-        self.slug = slugify(self.title)
-        super().save(args, kwargs)
 
 
     def __str__(self):
