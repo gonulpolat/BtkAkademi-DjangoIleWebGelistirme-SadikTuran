@@ -32,24 +32,15 @@ def programming(request):
 def mobile_apps(request):
     return HttpResponse("Mobil Uygulamalar")
 
-def get_courses_by_category_name(request, category_name):
-    try:
-        category_text = data[category_name]
-        return render(request, 'courses/courses.html', {
-            'category': category_name,
-            'category_text': category_text,
-        })
-    except:
-        return HttpResponseNotFound("<h1>Yanlış Kategori Seçimi</h1>")
-        
+def get_courses_by_category(request, slug):
+    kurslar = Course.objects.filter(category__slug = slug, isActive = 1)
+    kategoriler = Category.objects.all()
 
-def get_courses_by_category_id(request, category_id):
-    category_list = list(data.keys())
-    if(category_id > len(category_list)):
-        return HttpResponseNotFound("Yanlış Kategori Seçimi")
-    category_name = category_list[category_id - 1]
+    context = {
+        'courses': kurslar,
+        'categories': kategoriler,
+        'selected_category': slug,
+    }
 
-    redirect_url = reverse("courses_by_category_name", args=[category_name])  # url içerisinde birden fazla dinamik bölüm olabilir, bu nedenle args parametresi liste ile gönderilir
-
-    return redirect(redirect_url)
+    return render(request, 'courses/index.html', context)
     
