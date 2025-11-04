@@ -30,6 +30,26 @@ def search(request):
     return render(request, 'courses/search.html', context)
 
 def create_course(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        imageUrl = request.POST['imageUrl']
+        slug = request.POST['slug']
+        # isActive = request.POST['isActive']             # post request'te seçilen checkbox için on, seçilmeyen için ise herhangi bir değer atanmaz 
+        isActive = request.POST.get('isActive', False)        # get methodu bu sorunu çözüyor, seçili ise değer gelir, eğer değer yoksa (seçilmemişse) False atanır
+        isHome = request.POST.get('isHome', False)        
+        print(title, description, imageUrl, slug, isActive, isHome)
+
+        if isActive == 'on':
+            isActive = True
+
+        if isHome == 'on':
+            isHome = True
+
+        course = Course(title=title, description=description, imageUrl=imageUrl, slug=slug, isActive=isActive, isHome=isHome)
+        course.save()
+        return redirect('/kurs')
+
     return render(request, 'courses/course-create.html')
 
 def details(request, slug):
