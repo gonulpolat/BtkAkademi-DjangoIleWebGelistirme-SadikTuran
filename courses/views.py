@@ -35,16 +35,23 @@ def create_course(request):
         description = request.POST['description']
         imageUrl = request.POST['imageUrl']
         slug = request.POST['slug']
-        # isActive = request.POST['isActive']             # post request'te seçilen checkbox için on, seçilmeyen için ise herhangi bir değer atanmaz 
-        isActive = request.POST.get('isActive', False)        # get methodu bu sorunu çözüyor, seçili ise değer gelir, eğer değer yoksa (seçilmemişse) False atanır
+        isActive = request.POST.get('isActive', False)       
         isHome = request.POST.get('isHome', False)        
-        print(title, description, imageUrl, slug, isActive, isHome)
 
         if isActive == 'on':
             isActive = True
 
         if isHome == 'on':
             isHome = True
+
+        """
+            Form üzerinde hiçbir değer girmeden Kaydettiğinde kaydoluyor.
+            Model alanlar için null değer kabul etmiyor.
+            Giden değer null değil boşluk karakteri bu yüzden hata vermiyor.
+        """
+
+        if title == '':
+            return render(request, 'courses/course-create.html', {'error': True,})
 
         course = Course(title=title, description=description, imageUrl=imageUrl, slug=slug, isActive=isActive, isHome=isHome)
         course.save()
