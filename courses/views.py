@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Category, Course
 
@@ -15,9 +15,23 @@ def index(request):
     })
 
 def search(request):
-    print(request.GET)   
-    # http://127.0.0.1:8000/kurs/search?q=python               -> <QueryDict: {'q': ['python']}>
-    # http://127.0.0.1:8000/kurs/search?q=python&order_by=date -> <QueryDict: {'q': ['python'], 'order_by': ['date']}>
+    if 'q' in request.GET and request.GET['q'] != '':
+        q = request.GET['q']
+        kurslar = Course.objects.filter(isActive = 1, title__contains=q).order_by('date')
+        kategoriler = Category.objects.all()
+    else:
+        return redirect('/kurs')
+
+    paginator = Paginator(kurslar, 2)
+    page = request.GET.get('page', 1)   
+    page_obj = paginator.page(page)
+
+    context = {
+        'page_obj': page_obj,
+        'categories': kategoriler,
+    }
+
+    return render(request, 'courses/list.html', context)
 
 def details(request, slug):
     course = get_object_or_404(Course, slug=slug)
