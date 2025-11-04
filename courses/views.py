@@ -40,8 +40,9 @@ def create_course(request):
                 slug = form.cleaned_data['slug'])
             course.save()
             return redirect('/kurs')
-
-    form = CourseCreateForm()
+    # else içerisine almamın sebebi eğer form valid değilse tekrar oluşturulur. şimdi ise form tekrar oluşturulmaz, required alanlarını kaldırırsan hata mesajları görünür.
+    else:
+        form = CourseCreateForm()
 
     context = {
         'form': form,
