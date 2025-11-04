@@ -33,14 +33,9 @@ def create_course(request):
     if request.method == 'POST':
         form = CourseCreateForm(request.POST)
         if form.is_valid():
-            course = Course(
-                title = form.cleaned_data['title'], 
-                description = form.cleaned_data['description'], 
-                imageUrl = form.cleaned_data['imageUrl'], 
-                slug = form.cleaned_data['slug'])
-            course.save()
+            # verileri tek tek yazmana gerek yok zaten model üzerinden geliyor
+            form.save()
             return redirect('/kurs')
-    # else içerisine almamın sebebi eğer form valid değilse tekrar oluşturulur. şimdi ise form tekrar oluşturulmaz, required alanlarını kaldırırsan hata mesajları görünür.
     else:
         form = CourseCreateForm()
 
