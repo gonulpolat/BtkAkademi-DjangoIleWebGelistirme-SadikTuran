@@ -6,7 +6,6 @@ from .models import Course
 class CourseCreateForm(forms.ModelForm):
     class Meta:
         model = Course
-        # fields = '__all__'   (az önce yanlış yazmışım parantez olmayacak sorry)
         fields = ('title', 'description', 'imageUrl', 'slug')
         labels = {
             'title': 'Başlık',
@@ -19,4 +18,16 @@ class CourseCreateForm(forms.ModelForm):
             'imageUrl' : forms.TextInput(attrs={'class':'form-control'}),
             'slug' : forms.TextInput(attrs={'class':'form-control'}),
         }
-        # widgets eklenme sebebi class özelliği eklemek
+        error_messages = {
+            'title' : {
+                'required': 'Başlık alanı zorunludur.',
+                'max_length': 'En fazla 50 karakter girilebilir',
+            },
+            'description' : {
+                'required': 'Açıklama alanı zorunludur.',
+            },
+            'imageUrl' : {
+                'required': 'Resim Url alanı zorunludur.',
+                'max_length': 'En fazla 50 karakter girilebilir',
+            },
+        }
