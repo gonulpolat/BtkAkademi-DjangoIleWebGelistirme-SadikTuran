@@ -44,14 +44,19 @@ def create_course(request):
         if isHome == 'on':
             isHome = True
 
-        """
-            Form üzerinde hiçbir değer girmeden Kaydettiğinde kaydoluyor.
-            Model alanlar için null değer kabul etmiyor.
-            Giden değer null değil boşluk karakteri bu yüzden hata vermiyor.
-        """
+        error = False
+        msg = ""
 
         if title == '':
-            return render(request, 'courses/course-create.html', {'error': True,})
+            error = True
+            msg += "Başlık zorunlu bir alan. "
+
+        if len(title) < 5:
+            error = True
+            msg += "Başlık çok kısa. "
+
+        if error:
+            return render(request, 'courses/course-create.html', {'error': error, 'msg': msg,})
 
         course = Course(title=title, description=description, imageUrl=imageUrl, slug=slug, isActive=isActive, isHome=isHome)
         course.save()

@@ -10,7 +10,7 @@
             <div class="col-12">
                 {% if error %}
                     <div class="alert alert-danger">
-                        Formu eksiksiz doldurunuz.
+                        {{msg}}
                     </div>
                 {% endif %}
                 <form action="{% url 'create_course' %}" method="POST">
