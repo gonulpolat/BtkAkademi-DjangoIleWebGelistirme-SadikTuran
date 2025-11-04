@@ -6,7 +6,7 @@ from .models import Category, Course
 
 
 def index(request):
-    kurslar = Course.objects.filter(isActive=1)
+    kurslar = Course.objects.filter(isActive=1, isHome=1)
     kategoriler = Category.objects.all()
 
     return render(request, 'courses/index.html', {
