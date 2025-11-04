@@ -22,16 +22,12 @@ def search(request):
     else:
         return redirect('/kurs')
 
-    paginator = Paginator(kurslar, 2)
-    page = request.GET.get('page', 1)   
-    page_obj = paginator.page(page)
-
     context = {
-        'page_obj': page_obj,
+        'courses': kurslar,
         'categories': kategoriler,
     }
 
-    return render(request, 'courses/list.html', context)
+    return render(request, 'courses/search.html', context)
 
 def details(request, slug):
     course = get_object_or_404(Course, slug=slug)
@@ -54,5 +50,5 @@ def get_courses_by_category(request, slug):
         'selected_category': slug,
     }
 
-    return render(request, 'courses/index.html', context)
+    return render(request, 'courses/list.html', context)
     
