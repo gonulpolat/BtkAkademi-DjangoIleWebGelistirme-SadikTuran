@@ -36,7 +36,7 @@ class CourseCreateForm(forms.ModelForm):
 class CourseEditForm(forms.ModelForm):
     class Meta:
         model = Course
-        fields = ('title', 'description', 'imageUrl', 'slug')
+        fields = ('title', 'description', 'imageUrl', 'slug', 'categories', 'isActive', 'isHome')
         labels = {
             'title': 'Başlık',
             'description': 'Açıklama',
@@ -47,6 +47,7 @@ class CourseEditForm(forms.ModelForm):
             'description' : forms.Textarea(attrs={'class':'form-control'}),
             'imageUrl' : forms.TextInput(attrs={'class':'form-control'}),
             'slug' : forms.TextInput(attrs={'class':'form-control'}),
+            'categories': forms.SelectMultiple(attrs={'class':'form-control'}),
         }
         error_messages = {
             'title' : {
