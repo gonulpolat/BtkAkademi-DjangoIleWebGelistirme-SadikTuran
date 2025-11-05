@@ -62,3 +62,7 @@ class CourseEditForm(forms.ModelForm):
                 'max_length': 'En fazla 50 karakter girilebilir',
             },
         }
+
+
+class UploadForm(forms.Form):
+    image = forms.ImageField()
