@@ -45,6 +45,15 @@ def create_course(request):
 
     return render(request, 'courses/course-create.html', context)
 
+def course_list(request):
+    kurslar = Course.objects.all()
+    return render(request, 'courses/course-list.html', {
+        'courses': kurslar,
+    })
+
+def course_edit(request, id):
+    pass
+
 def details(request, slug):
     course = get_object_or_404(Course, slug=slug)
     context = {
