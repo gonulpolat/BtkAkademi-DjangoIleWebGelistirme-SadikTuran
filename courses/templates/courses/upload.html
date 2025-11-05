@@ -11,7 +11,7 @@
                 <form action="{% url "upload_image" %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="input-group">
-                        <input type="file" name="image" id="uploadImage" class="form-control">
+                        <input type="file" name="images" id="" class="form-control" multiple="true">
                         <button type="submit" class="btn btn-outline-secondary" id="">Yükle</button>
                     </div>
                 </form>
