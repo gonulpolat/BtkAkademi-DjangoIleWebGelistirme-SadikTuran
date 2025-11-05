@@ -3,6 +3,8 @@ from django.shortcuts import redirect, render
 
 
 def user_login(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
