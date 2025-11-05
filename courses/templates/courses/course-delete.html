@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block page_title %}
+    Kursu Sil
+{% endblock  %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+               <p>
+                <strong> {{course.title}} </strong> kursunu silmek istiyor musunuz?
+               </p>
+               <form action="{% url "course_delete" course.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Evet</button>
+                <a href="{% url "course_list" %}" class="btn btn-primary">Hayır</a>
+               </form>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
