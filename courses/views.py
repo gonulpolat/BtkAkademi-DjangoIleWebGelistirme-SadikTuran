@@ -1,5 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
+import random
+import os
 
 from .forms import CourseCreateForm, CourseEditForm
 from .models import Category, Course
@@ -76,7 +78,10 @@ def upload(request):
     return render(request, 'courses/upload.html')
 
 def handle_uploaded_files(file):
-    with open('temp/' + file.name, 'wb+') as destination:
+    number = random.randint(1, 999999)
+    file_name , file_extension = os.path.splitext(file.name)
+    filename = file_name + '_' + str(number) + file_extension
+    with open('temp/' + filename, 'wb+') as destination:
         for chunk in file.chunks():
             destination.write(chunk)
 
