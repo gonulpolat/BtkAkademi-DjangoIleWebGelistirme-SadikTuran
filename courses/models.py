@@ -14,7 +14,7 @@ class Category(models.Model):
 class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
-    imageUrl = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='images', default='')   # default parametresini tanımlamamın sebebi veri tabanında kayıtları olması
     date = models.DateField(auto_now=True)
     isActive = models.BooleanField(default=False)
     isHome = models.BooleanField(default=False)
