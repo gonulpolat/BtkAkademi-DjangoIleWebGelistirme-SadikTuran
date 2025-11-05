@@ -1,7 +1,5 @@
 {% extends "layout.html" %}
 
-{% load static %}
-
 {% block page_title %}
     Kurs Listesi
 {% endblock  %}
@@ -23,7 +21,7 @@
                         {% for course in courses %}
                             <tr>
                                 <td>
-                                    <img src="{% static "courses/img/"|add:course.image %}" alt="" class="img-fluid">
+                                    <img src="{{course.image.url}}" alt="" class="img-fluid">
                                 </td>
                                 <td> {{course.title}} </td>
                                 <td> {{course.slug}} </td>
