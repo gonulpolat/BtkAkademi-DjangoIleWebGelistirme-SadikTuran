@@ -23,3 +23,9 @@ class Course(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+
+class UploadModel(models.Model):
+    image = models.ImageField(upload_to='images')      # uploads klasörü içine images klasörü ekle onun içine dosyaları yaz.
+    # uploads klasörünü ben oluşturmadım
+    # settings dosyası içine MEDIA_ROOT yazdım ve uploads klasörü bu şekilde oluştu

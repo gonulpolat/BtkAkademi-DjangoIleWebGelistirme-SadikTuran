@@ -4,7 +4,7 @@ import random
 import os
 
 from .forms import CourseCreateForm, CourseEditForm, UploadForm
-from .models import Category, Course
+from .models import Category, Course, UploadModel
 
 
 def index(request):
@@ -74,20 +74,12 @@ def upload(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES) # Text bilgileri request.POST ögesinden; files bilgileri request.FILES ögesinden gelir
         if form.is_valid():
-            uploaded_image =  request.FILES['image']
-            handle_uploaded_files(uploaded_image)
+            model = UploadModel(image=request.FILES['image'])
+            model.save()
             return render(request, 'courses/success.html')
     else:
         form = UploadForm()
     return render(request, 'courses/upload.html', {'form': form})
-
-def handle_uploaded_files(file):
-    number = random.randint(1, 999999)
-    file_name , file_extension = os.path.splitext(file.name)
-    filename = file_name + '_' + str(number) + file_extension
-    with open('temp/' + filename, 'wb+') as destination:
-        for chunk in file.chunks():
-            destination.write(chunk)
 
 def details(request, slug):
     course = get_object_or_404(Course, slug=slug)
