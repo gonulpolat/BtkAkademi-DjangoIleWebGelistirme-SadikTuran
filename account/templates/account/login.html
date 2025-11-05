@@ -1,1 +1,33 @@
-login
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Giriş Yap
+{% endblock  %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                <h1>Giriş Yap</h1>
+                <hr>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{error}}
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Kullanıcı Adı</label>
+                        <input type="text" name="username" id="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Parola</label>
+                        <input type="text" name="password" id="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock  %}
