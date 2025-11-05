@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import CourseCreateForm
+from .forms import CourseCreateForm, CourseEditForm
 from .models import Category, Course
 
 
@@ -52,7 +52,9 @@ def course_list(request):
     })
 
 def course_edit(request, id):
-    pass
+    course = get_object_or_404(Course, pk=id)
+    form = CourseEditForm(instance=course)
+    return render(request, 'courses/course-edit.html', {'form': form,})
 
 def details(request, slug):
     course = get_object_or_404(Course, slug=slug)
