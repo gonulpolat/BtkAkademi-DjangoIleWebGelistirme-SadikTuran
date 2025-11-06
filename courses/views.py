@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
@@ -30,7 +30,10 @@ def search(request):
 
     return render(request, 'courses/search.html', context)
 
-@login_required()
+def isAdmin(user):
+    return user.is_superuser
+
+@user_passes_test(isAdmin)
 def create_course(request):
     if request.method == 'POST':
         form = CourseCreateForm(request.POST, request.FILES)
@@ -47,14 +50,14 @@ def create_course(request):
 
     return render(request, 'courses/course-create.html', context)
 
-@login_required
+@user_passes_test(isAdmin)
 def course_list(request):
     kurslar = Course.objects.all()
     return render(request, 'courses/course-list.html', {
         'courses': kurslar,
     })
 
-@login_required
+@user_passes_test(isAdmin)
 def course_edit(request, id):
     course = get_object_or_404(Course, pk=id)
     if request.method == 'POST':
@@ -65,7 +68,7 @@ def course_edit(request, id):
         form = CourseEditForm(instance=course)
     return render(request, 'courses/course-edit.html', {'form': form,})
 
-@login_required
+@user_passes_test(isAdmin)
 def course_delete(request, id):
     course = get_object_or_404(Course, pk=id)
     if request.method == 'POST':
