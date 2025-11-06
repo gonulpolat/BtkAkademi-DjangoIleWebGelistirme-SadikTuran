@@ -6,7 +6,8 @@ from django.shortcuts import redirect, render
 
 def user_login(request):
     if request.user.is_authenticated and 'next' in request.GET:
-        return render(request, 'account/login.html', {'error': 'Yetkiniz yok!'})
+        messages.add_message(request, messages.ERROR, 'Yetkiniz yok!.')
+        return render(request, 'account/login.html')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -64,4 +65,5 @@ def user_register(request):
 
 def user_logout(request):
     logout(request)
+    messages.add_message(request, messages.SUCCESS, 'Başarılı bir şekilde çıkış yaptınız.')
     return redirect("index")
