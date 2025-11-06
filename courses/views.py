@@ -1,7 +1,6 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
-import random
-import os
 
 from .forms import CourseCreateForm, CourseEditForm, UploadForm
 from .models import Category, Course, UploadModel
@@ -31,9 +30,9 @@ def search(request):
 
     return render(request, 'courses/search.html', context)
 
+# http://127.0.0.1:8000/accounts/login/?next=/kurs/create-course -> login olmayan kullanıcı Kurs Ekle sayfasına gitmeye çalışırsa bu sayfaya yönlendirilir
+@login_required(login_url='/account/login')   # şimdi bu sayfaya yönlenir
 def create_course(request):
-    if not request.user.is_superuser:
-        return redirect('index')
     if request.method == 'POST':
         form = CourseCreateForm(request.POST, request.FILES)
         if form.is_valid():
