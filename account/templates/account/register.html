@@ -12,27 +12,9 @@
                 <hr>
                 <form action="" method="post" novalidate>
                     {% csrf_token %}
-                    {% if error %}
-                        <div class="alert alert-danger">
-                            {{error}}
-                        </div>
-                    {% endif %}
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Kullanıcı Adı</label>
-                        <input type="text" name="username" id="username" class="form-control" required value="{% if username %} {{username}} {% endif %}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="text" name="email" id="email" class="form-control" required value="{% if email %} {{email}} {% endif %}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Parola</label>
-                        <input type="text" name="password" id="password" class="form-control" required value="{% if password %} {{password}} {% endif %}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="repassword" class="form-label">Parola Tekrar</label>
-                        <input type="text" name="repassword" id="repassword" class="form-control" required value="{% if repassword %} {{repassword}} {% endif %}">
-                    </div>
+                    
+                    {% include "partials/_form.html" %}
+
                     <button type="submit" class="btn btn-primary">Kayıt Ol</button>
                 </form>
             </div>
