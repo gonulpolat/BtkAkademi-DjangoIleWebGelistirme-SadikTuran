@@ -15,7 +15,7 @@
                 <li class="nav-item">
                     <a href="/hakkimizda" class="nav-link">Hakkımızda</a>
                 </li>
-                {% if is_superuser %}
+                {% if user.is_superuser %}
                     <li class="nav-item">
                         <a href="{% url "create_course" %}" class="nav-link">Kurs Ekle</a>
                     </li>
