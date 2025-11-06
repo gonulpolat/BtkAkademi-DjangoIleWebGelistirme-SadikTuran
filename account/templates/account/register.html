@@ -1,1 +1,41 @@
-register
+{% extends "layout.html" %}
+
+{% block page_title %}
+    Kayıt Ol
+{% endblock  %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-12">
+                <h1>Kayıt Ol</h1>
+                <hr>
+                <form action="" method="post" novalidate>
+                    {% csrf_token %}
+                    {% if error %}
+                        <div class="alert alert-danger">
+                            {{error}}
+                        </div>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Kullanıcı Adı</label>
+                        <input type="text" name="username" id="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="text" name="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Parola</label>
+                        <input type="text" name="password" id="password" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="repassword" class="form-label">Parola Tekrar</label>
+                        <input type="text" name="repassword" id="repassword" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

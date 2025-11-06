@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 
 
@@ -18,7 +19,28 @@ def user_login(request):
         return render(request, 'account/login.html')
 
 def user_register(request):
-    return render(request, 'account/register.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        repassword = request.POST['repassword']
+
+        if password == repassword:
+            if User.objects.filter(username=username).exists():   # user'ı göndermez, var mı yok mu ona bakar
+                return render(request, 'account/register.html', {'error': 'Username kullanılıyor.'})
+            else:
+                if User.objects.filter(email=email).exists():
+                    return render(request, 'account/register.html', {'error': 'Email başka bir hesaba ait.'})
+                else:
+                    user = User.objects.create_user(username=username, email=email, password=password)
+                    user.save()
+                    return redirect('user_login')
+        else:
+            return render(request, 'account/register.html', {'error': 'Parola eşlemşmiyor'})
+        
+
+    else:
+        return render(request, 'account/register.html')
 
 def user_logout(request):
     logout(request)
