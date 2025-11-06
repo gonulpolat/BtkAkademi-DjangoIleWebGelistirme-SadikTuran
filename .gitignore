@@ -175,4 +175,5 @@ cython_debug/
 
 uploads/images/
 
+staticfiles
 staticfiles/*
