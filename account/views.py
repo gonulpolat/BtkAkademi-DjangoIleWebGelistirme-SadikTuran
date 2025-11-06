@@ -4,8 +4,8 @@ from django.shortcuts import redirect, render
 
 
 def user_login(request):
-    if request.user.is_authenticated:
-        return redirect('index')
+    if request.user.is_authenticated and 'next' in request.GET:
+        return render(request, 'account/login.html', {'error': 'Yetkiniz yok!'})
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
