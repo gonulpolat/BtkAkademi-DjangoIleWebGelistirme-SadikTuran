@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
@@ -12,13 +13,15 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user=user)
+            messages.add_message(request, messages.SUCCESS, 'Başarılı bir şekilde giriş yaptınız.')
             nextUrl = request.GET.get('next', None)
             if nextUrl is None:
                 return redirect('index')
             else:
                 return redirect(nextUrl)
         else:
-            return render(request, 'account/login.html', {'error': 'Kullanıcı adı veya parola yanlış!'})
+            messages.add_message(request, messages.ERROR, 'Kullanıcı adı veya parola yanlış!')
+            return render(request, 'account/login.html')
     else:
         return render(request, 'account/login.html')
 
