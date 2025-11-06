@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
 from django.forms import ValidationError, widgets
 
 
@@ -19,3 +20,26 @@ class LoginUserForm(AuthenticationForm):
         # sadece öğrenmek amacıyla oluşturulan bir fonksiyon
         if user.username.startswith('b'):
             raise ValidationError('Bu kullanıcı ile giriş yapılamaz.')
+
+
+class NewUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'username', 'email')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['first_name'].widget = widgets.TextInput(attrs={'class':'form-control',})
+        self.fields['last_name'].widget = widgets.TextInput(attrs={'class':'form-control',})
+        self.fields['username'].widget = widgets.TextInput(attrs={'class':'form-control',})
+        self.fields['email'].widget = widgets.EmailInput(attrs={'class':'form-control',})
+        self.fields['email'].required = True
+        self.fields['password1'].widget = widgets.PasswordInput(attrs={'class':'form-control',})
+        self.fields['password2'].widget = widgets.PasswordInput(attrs={'class':'form-control',})
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            self.add_error('email', 'Bu mail adresine kayıtlı bir hesap bulunmakta.')
+        return email
+    

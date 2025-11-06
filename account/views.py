@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
 
-from .forms import LoginUserForm
+from .forms import LoginUserForm, NewUserForm
 
 
 def user_login(request):
@@ -34,7 +34,7 @@ def user_login(request):
 
 def user_register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = NewUserForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data['username']
@@ -46,7 +46,7 @@ def user_register(request):
             return render(request, 'account/register.html', {'form': form,})
         
     else:
-        form = UserCreationForm()
+        form = NewUserForm()
         return render(request, 'account/register.html', {'form': form,})
 
 def user_logout(request):
