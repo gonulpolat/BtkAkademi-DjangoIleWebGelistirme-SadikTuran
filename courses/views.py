@@ -32,6 +32,8 @@ def search(request):
     return render(request, 'courses/search.html', context)
 
 def create_course(request):
+    if not request.user.is_superuser:
+        return redirect('index')
     if request.method == 'POST':
         form = CourseCreateForm(request.POST, request.FILES)
         if form.is_valid():
