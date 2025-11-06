@@ -1,0 +1,226 @@
+* Web geliştirme frameworkü
+* Server tarafında çalışır
+* Hazır yönetim paneli var
+* Alternatifleri => ASP.NET, PHP, Node.js
+
+Komut İstemi
+>>> python --version                     : kurulu olan Python versiyonunu gösterir
+>>> django-admin                         : komutları listeler
+>>> pip freze                            : kurulu olan kütüphaneleri listeler
+>>> django-admin startproject courseapp  : proje oluşturur
+>>> python manage.py runserver           : projeyi çalıştırır
+>>> python manage.py startapp courses    : proje içine uygulama eklenir
+>>> python manage.py makemigrations      : modelde yapılan değişiklikler için migration dosyası oluşturur
+>>> python manage.py migrate             : migration'ları veri tabanına ekler
+>>> python manage.py createsuperuser     : superuser oluşturur
+>>> python manage.py collectstatic       : tüm static dosyaların setting içerisinde belirtilen isimdeki dosyada birleştirir
+
+* Eklenen uygulamaları INSTALLED_APPS içerisine ekle
+
+* Html sayfaları Django içinde template olarak adlandırılır
+
+* VSCode içerisinde Django eklentisi olduğu için html emmet eklentisi çalışmıyor. Bunun için settings.json dosyası içerisine aşağıdaki özelliği ekle;
+"emmet.includeLanguages": {
+    "django-html": "html"
+}
+
+* Uygulamalar içerisindeki templates klasörü taranan klasör iken, ana dizine eklediğin templates klasörünü projeye tanıtman gerekli. Aynı durum static klasörü için de geçerli.
+
+
+Layout
+- layout.html       : Değişiklik yapılacak yerlere block eklenir
+- içerik sayfaları  : {% extends "layout.html" %} sonra değişiklik yapılacak yerlere block eklenir. partial ayrılan yerler include ile birleştirilir.
+- partial sayfalar  : sade html sayfası. herhangi bir şey eklenmiyor.
+
+* partials == includes
+
+null  -> veri tabanı ile ilgili
+blank -> formlar ile ilgili
+
+-------------------------------------- MODEL İŞLEMLERİ --------------------------------------
+Shell moda giriş   : python manage.py shell
+Shell moddan çıkış : >>> quit()
+
+1) KAYIT EKLEME
+a- 
+>>> from courses.models import Course
+>>> from datetime import datetime
+>>> kurs1 = Course(title='JavaScript', description='Güzel bir kurs', imageUrl='javascript.webp', date=datetime.now(), isActive=1)
+>>> kurs1.save()
+
+b-
+>>> from courses.models import Course
+>>> from datetime import datetime
+>>> Course.objects.create(title='JavaScript', description='Güzel bir kurs', imageUrl='javascript.webp', date=datetime.now(), isActive=1)
+
+
+2) KAYIT SORGULAMA
+a-
+>>> from courses.models import Course
+>>> Course.objects.all()
+
+b-
+>>> from courses.models import Course
+>>> kurslar =  Course.objects.all()
+>>> kurslar
+>>> kurslar[0]
+>>> kurslar[0].title
+
+c-
+>>> from courses.models import Course
+>>> kurs1 = Course.objects.get(pk=1)
+>>> kurs1
+>>> kurs1.title
+
+d- 
+>>> from courses.models import Course
+>>> kurs = Course.objects.get(title='Python')
+>>> kurs
+
+
+3) KAYIT FİLTRELEME
+a-
+>>> from courses.models import Course
+>>> Course.objects.filter(isActive=1)
+
+b-
+>>> from courses.models import Course
+>>> kurslar = Course.objects.filter(title="JavaScript")
+>>> kurslar
+>>> kurslar[0]
+
+c-
+>>> from courses.models import Course
+>>> kurs = Course.objects.get(title="JavaScript")      
+>>> kurs
+
+d-
+>>> from courses.models import Course
+>>> Course.objects.filter(date__lte='2026-01-01')
+
+e-
+>>> from courses.models import Course
+>>> Course.objects.filter(date__gt='2026-01-01')
+
+f-
+>>> from courses.models import Course
+>>> Course.objects.filter(title__exact="Javascript")
+>>> Course.objects.filter(title__iexact="Javascript")
+>>> Course.objects.filter(title__contains="Java")
+
+
+4) AND OPERATÖRÜ
+a-
+>>> from courses.models import Course
+>>> Course.objects.filter(title__contains='P', isActive=1)
+
+
+5) OR OPERATÖRÜ
+a-
+>>> from courses.models import Course
+>>> from django.db.models import Q
+>>> Course.objects.filter(Q(title="JavaScript") | Q(title__contains="Python"))
+
+
+6) HEM AND HEM OR OPERATÖRÜ
+a-
+>>> from courses.models import Course
+>>> from django.db.models import Q
+>>> Course.objects.filter(Q(title="JavaScript") | Q(title__contains="Python"), isActive=1)
+
+
+7) KAYIT GÜNCELLEME
+a-
+>>> from courses.models import Course
+>>> kurs1 = Course.objects.get(pk=1)
+>>> kurs1.title = "Python Kursu"
+>>> kurs1.save()
+
+b-
+>>> from courses.models import Course
+>>> kurslar = Course.objects.filter(isActive=True)
+>>> kurslar.update(isActive=False)
+
+
+8) KAYIT SİLME
+a-
+>>> from courses.models import Course
+>>> kurs1 = Course.objects.get(pk=1)
+>>> kurs1.delete()
+
+
+9) 1-TO-MANY RELATIONS KAYIT SORGULAMA
+a-
+>>> from courses.models import Course, Category
+>>> Course.objects.filter(category__name="veri Analizi")  
+
+b-
+>>> from courses.models import Course, Category
+>>> c2 = Category.objects.get(pk=2)
+>>> c2.course_set.all()
+
+c-
+>>> from courses.models import Course, Category
+>>> c2 = Category.objects.get(pk=2)
+>>> c2.kurslar.all()
+
+
+10) MANY-TO-MANY RELATONS KAYIT EKLEME
+a-
+>>> from courses.models import Course, Category
+>>> p = Category.objects.get(pk=1)
+>>> kurs1 = Course.objects.get(pk=2)
+>>> kurs1.categories.add(p)
+>>> kurs1.categories.all()
+
+b-
+>>> from courses.models import Course, Category
+>>> kurs1 = Course.objects.get(pk=1)
+>>> kurs1.categories.add(Category.objects.get(pk=2))
+>>> kurs1.categories.all()
+
+c-
+>>> from courses.models import Course, Category
+>>> p = Category.objects.get(pk=1)
+>>> p.course_set.add(Course.objects.get(pk=4)) 
+>>> p.course_set.all()
+
+
+11) MANY-TO-MANY RELATIONS KAYIT SİLME
+a-
+>>> from courses.models import Course, Category
+>>> kurs1 = Course.objects.get(pk=1)
+>>> kurs1.categories.remove(Category.objects.get(pk=2))
+>>> kurs1.categories.all()
+
+b-
+>>> from courses.models import Course, Category
+>>> kurs1 = Course.objects.get(pk=1)
+>>> kurs1.categories.clear()
+
+
+12) MANY-TO-MANY RELATIONS KAYIT SORGULAMA
+a-
+>>> from courses.models import Category, Course
+>>> kategori1 = Category.objects.get(pk=1)
+>>> kategori1.course_set.filter(isActive=True)
+
+b-
+>>> from courses.models import Category, Course
+>>> Category.objects.get(pk=1).course_set.all() 
+
+c-
+>>> from courses.models import Category, Course
+>>> Course.objects.filter(categories__name = "Programlama")
+
+
+
+-------------------------------------- FORMS İŞLEMLERİ --------------------------------------
+
+https://www.google.com/search?q=python
+q -> query string
+
+
+forms:
+1- GET
+2- POST
