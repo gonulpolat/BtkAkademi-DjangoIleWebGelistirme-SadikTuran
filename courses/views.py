@@ -30,8 +30,7 @@ def search(request):
 
     return render(request, 'courses/search.html', context)
 
-# http://127.0.0.1:8000/accounts/login/?next=/kurs/create-course -> login olmayan kullanıcı Kurs Ekle sayfasına gitmeye çalışırsa bu sayfaya yönlendirilir
-@login_required(login_url='/account/login')   # şimdi bu sayfaya yönlenir
+@login_required()
 def create_course(request):
     if request.method == 'POST':
         form = CourseCreateForm(request.POST, request.FILES)
@@ -48,12 +47,14 @@ def create_course(request):
 
     return render(request, 'courses/course-create.html', context)
 
+@login_required
 def course_list(request):
     kurslar = Course.objects.all()
     return render(request, 'courses/course-list.html', {
         'courses': kurslar,
     })
 
+@login_required
 def course_edit(request, id):
     course = get_object_or_404(Course, pk=id)
     if request.method == 'POST':
@@ -64,6 +65,7 @@ def course_edit(request, id):
         form = CourseEditForm(instance=course)
     return render(request, 'courses/course-edit.html', {'form': form,})
 
+@login_required
 def course_delete(request, id):
     course = get_object_or_404(Course, pk=id)
     if request.method == 'POST':
