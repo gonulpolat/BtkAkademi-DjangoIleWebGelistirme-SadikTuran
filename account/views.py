@@ -26,11 +26,27 @@ def user_register(request):
         repassword = request.POST['repassword']
 
         if password != repassword:
-            return render(request, 'account/register.html', {'error': 'Parola eşlemşmiyor'})
-        if User.objects.filter(username=username).exists():   # user'ı göndermez, var mı yok mu ona bakar
-            return render(request, 'account/register.html', {'error': 'Username kullanılıyor.'})
+            return render(request, 'account/register.html', {
+                'error': 'Parola eşlemşmiyor',
+                'username': username,
+                'email': email,
+                })
+        
+        if User.objects.filter(username=username).exists():
+            return render(request, 'account/register.html', {
+                'error': 'Username kullanılıyor.',
+                'email': email,
+                'password': password,
+                'repassword': repassword,
+                })
+        
         if User.objects.filter(email=email).exists():
-            return render(request, 'account/register.html', {'error': 'Email başka bir hesaba ait.'})
+            return render(request, 'account/register.html', {
+                'error': 'Email başka bir hesaba ait.',
+                'username': username,
+                'password': password,
+                'repassword': repassword,
+                })
 
         user = User.objects.create_user(username=username, email=email, password=password)
         user.save()
