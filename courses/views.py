@@ -3,16 +3,18 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import CourseCreateForm, CourseEditForm, UploadForm
-from .models import Category, Course, UploadModel
+from .models import Category, Course, Slider, UploadModel
 
 
 def index(request):
     kurslar = Course.objects.filter(isActive=1, isHome=1)
     kategoriler = Category.objects.all()
+    sliders = Slider.objects.filter(isActive=True)
 
     return render(request, 'courses/index.html', {
         'courses': kurslar,
         'categories': kategoriler,
+        'sliders': sliders,
     })
 
 def search(request):
